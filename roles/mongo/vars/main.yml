@@ -1,0 +1,6 @@
+mongo_opt_dir: "/opt/mongo"
+mongo_user: "mongo"
+mongo_version: "mongodb-linux-x86_64-3.2.8"
+mongo_tar_filename: "{{ mongo_version }}.tgz"
+mongo_tar_url: "https://fastdl.mongodb.org/linux/{{ mongo_tar_filename }}"
+mongo_bin_dir: "{{ mongo_opt_dir }}/{{ mongo_version }}/bin"

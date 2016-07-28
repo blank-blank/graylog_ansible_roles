@@ -1,0 +1,14 @@
+---
+
+- name: touch file
+  command: "touch testfromrole"
+
+- name: create mongo dir
+  file: path={{ mongo_opt_dir }} state=directory owner={{ mongo_user }} group={{ mongo_user }}
+
+- name: get mongo tar file
+  unarchive: src={{ mongo_tar_url }} dest={{ mongo_opt_dir }} copy=no
+
+- name: run mongod
+  shell: "nohup runuser -l {{ mongo_user }} -c {{ mongo_bin_dir}}/mongod &"
+  
