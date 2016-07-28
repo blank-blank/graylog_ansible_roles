@@ -1,0 +1,4 @@
+es_tar_url: "https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.3.4/elasticsearch-2.3.4.tar.gz"
+es_download_path: "/tmp/elasticsearch.tar.gz"
+es_install_path: "/opt/elasticsearch"
+es_user: "ec2-user"

@@ -1,0 +1,1 @@
+su - {{ es_user }} /opt/elasticsearch/elasticsearch-2.3.4/bin/elasticsearch 2>$1 > /var/log/elasticsearch &

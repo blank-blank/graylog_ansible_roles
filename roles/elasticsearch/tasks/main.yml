@@ -1,0 +1,33 @@
+---
+- name: test file from ES role
+  file: path=/tmp/testFromESRole state=touch mode="u=rw,g=r,o=r"
+
+- name: install java8 jdk
+  command: 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" -O /tmp/oraclejdk8.tar.gz "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz"'
+
+- name: create jvm dir
+  file: path=/usr/lib/jvm state=directory mode=0755
+- name: unpack jdk
+  unarchive: src=/tmp/oraclejdk8.tar.gz dest=/usr/lib/jvm/
+
+- name: link java path to jdk
+  file: src=/usr/lib/jvm/jdk1.8.0_91/bin/java dest=/usr/bin/java owner=root group=root state=link
+  
+- name: download elasticsearch
+  get_url: url={{ es_tar_url }} dest={{ es_download_path }} owner={{ es_user }} group={{ es_user }} mode=0644
+
+- name: create elasticsearch directory
+  file: path={{ es_install_path }} state=directory owner={{ es_user }} group={{ es_user }} mode=0755
+
+- name: unpack elasticsearch
+  unarchive: src={{ es_download_path }} dest={{ es_install_path }} owner={{ es_user }} group={{ es_user }}
+
+- name: correct es permissions
+  command: "chown -R {{ es_user }}:{{ es_user}} {{ es_install_path }}"
+
+- name: copy service file
+  template: src="etc/init.d/elasticsearch" dest="/etc/init.d/elasticsearch" owner=root group=root mode=0755
+
+- name: start elasticsearch
+  command: "service elasticsearch start"
+
