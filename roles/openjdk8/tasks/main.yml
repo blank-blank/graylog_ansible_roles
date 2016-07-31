@@ -1,0 +1,12 @@
+---
+
+- name: install java8 jdk
+  command: 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" -O /tmp/oraclejdk8.tar.gz "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz"'
+
+- name: create jvm dir
+  file: path=/usr/lib/jvm state=directory mode=0755
+- name: unpack jdk
+  unarchive: src=/tmp/oraclejdk8.tar.gz dest=/usr/lib/jvm/
+
+- name: link java path to jdk
+  file: src=/usr/lib/jvm/jdk1.8.0_91/bin/java dest=/usr/bin/java owner=root group=root state=link

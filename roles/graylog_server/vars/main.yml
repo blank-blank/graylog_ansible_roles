@@ -1,0 +1,7 @@
+gl_version: "graylog-2.0.3"
+gl_tar_filename: "{{ gl_version }}.tgz"
+gl_tar_url: "https://packages.graylog2.org/releases/graylog/{{ gl_tar_filename }}"
+gl_opt_dir: "/opt/graylog"
+gl_user: "graylog"
+gl_conf_dir: "etc/graylog/server"
+gl_conf_filepath: "{{ gl_conf_dir }}/server.conf"

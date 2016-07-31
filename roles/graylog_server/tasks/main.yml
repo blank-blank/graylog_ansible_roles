@@ -1,0 +1,17 @@
+- name: create graylog user
+  user: name={{ gl_user }} 
+- name: create gl install dir
+  file: path={{ gl_opt_dir }} state=directory owner={{ gl_user }} group={{ gl_user }} mode="1755"
+
+- name: download and unpack graylog
+  unarchive: src={{ gl_tar_url }} dest={{ gl_opt_dir }} copy=no 
+
+- name: create gl install dir
+  file: path={{ gl_opt_dir }} state=directory recurse=yes owner={{ gl_user }} group={{ gl_user }} mode="1755"
+
+- name: make graylog conf dir
+  file: path=/{{ gl_conf_dir }} state=directory owner={{ gl_user }} group={{ gl_user }}
+
+- name: place graylog conf file
+  template: src={{ gl_conf_filepath }} dest=/{{ gl_conf_filepath }}
+
